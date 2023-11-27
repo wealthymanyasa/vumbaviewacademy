@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 5, 2);
-            $table->decimal('bill', 5 ,2);
-            $table->decimal('balance', 5 ,2);
+            $table->bigInteger('amount');
+            $table->bigInteger('bill');
+            $table->bigInteger('balance')->nullable();
             $table->dateTime('dateOfPayment');
-            $table->unsignedBigInteger('studentId');
+            $table->unsignedBigInteger('student_id');
+            // Foreign key relationship
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->timestamps();
         });
     }

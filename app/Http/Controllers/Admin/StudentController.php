@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentCreateRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -28,22 +29,19 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StudentCreateRequest $request)
     {
-        // Student::create([
-        //     'name' => $request->name,
-        //     'surname' => $request->surname,
-        //     'image' => $image
-        //     $table->string('name');
-        //     $table->string('');
-        //     $table->dateTime('dateOfBirth');
-        //     $table->dateTime('dateOfEnrolment');
-        //     $table->char('birthEntryNumber') ;
-        //     $table->enum('studentType',array('primary', 'secondary'));
+        Student::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'dateOfBirth' => $request->dateOfBirth,
+            'birthEntryNumber' => $request->birthEntryNumber,
+            'dateOfEnrolment' => $request->dateOfEnrolment,
+            'studentType' => $request->studentType
 
-        // ]);
+        ]);
 
-        // return to_route('admin.categories.index')
+        return to_route('admin.students.index');
     }
 
     /**
@@ -57,24 +55,39 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Student $student)
     {
-        //
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+        ]);
+
+        $student->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'dateOfBirth' => $request->dateOfBirth,
+            'birthEntryNumber' => $request->birthEntryNumber,
+            'dateOfEnrolment' => $request->dateOfEnrolment,
+            'studentType' => $request->studentType
+        ]);
+
+        return to_route('admin.students.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return to_route('admin.students.index');
     }
 }

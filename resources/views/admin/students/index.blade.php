@@ -11,9 +11,9 @@
 
             <div class="flex items-center">
                 <a href="{{ route('admin.students.create') }}"
-                class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
-                           New Student</a>
-                </div>
+                    class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
+                    New Student</a>
+            </div>
         </div>
         <div class="relative overflow-x-auto rounded-lg shadow-purple-200 shadow-md">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -28,11 +28,12 @@
                         <th scope="col" class="px-6 py-3">
                             Birth Entry No
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Date Of Enrolment
-                        </th>
+
                         <th scope="col" class="px-6 py-3">
                             Date Of Birth
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Date Of Enrolment
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Student Type
@@ -43,53 +44,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($categories as $category) --}}
-                    <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                    @forelse ($students as $student)
+                        <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->name }} --}}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->name }} --}}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->description }} --}}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->description }} --}}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->description }} --}}
-                        </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->name }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->surname }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->birthEntryNumber }}
+                            </td>
 
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{ $category->description }} --}}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="flex space-x-2">
-                                <a href="" {{-- {{ route('admin.categories.edit', $category->id) }} --}}
-                                    class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
-                                <form
-                                    class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
-                                    method="POST" {{-- action="{{ route('admin.categories.destroy', $category->id) }}" --}}
-                                    onSubmit="return confirm('Are you sure you want to delete?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->dateOfBirth }}
 
-                    </tr>
-                    {{-- @endforeach --}}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->dateOfEnrolment }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->studentType }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex space-x-2">
+                                    <a href=" {{ route('admin.students.edit', $student->id) }}"
+                                        class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
+                                    <form
+                                        class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
+                                        method="POST" action="{{ route('admin.students.destroy', $student->id) }}"
+                                        onSubmit="return confirm('Are you sure you want to delete?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        @empty
 
+                            <td scope="row max-w-[200px] " colspan="7"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
+                                </p class="text-center">No fees payments found</p>
+                            </td>
+
+
+
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

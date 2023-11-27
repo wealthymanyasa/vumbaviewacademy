@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'surname',
+        'dateOfBirth',
+        'birthEntryNumber',
+        'dateOfEnrolment',
+        'studentType'
+    ];
+
+    public function fees()
+    {
+        return $this->hasMany(Fee::class);
+    }
 }
