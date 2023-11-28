@@ -6,8 +6,14 @@
     </x-slot>
 
     <div class="py-12 p-4 space-y-6">
-        <div class="border-l-4 border-purple-300">
-           <span class="p-4 uppercase font-semibold ">Parents</span>
+        <div class="border-l-4 border-purple-300 flex justify-between">
+            <span class="p-4 uppercase font-semibold "> Guardians </span>
+
+            <div class="flex items-center">
+                <a href="{{ route('admin.guardians.create') }}"
+                    class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
+                    New Guardian</a>
+            </div>
         </div>
         <div class="relative overflow-x-auto rounded-lg shadow-purple-200 shadow-md">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

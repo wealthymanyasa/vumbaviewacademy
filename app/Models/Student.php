@@ -22,4 +22,14 @@ class Student extends Model
     {
         return $this->hasMany(Fee::class);
     }
+
+    public function uniforms()
+    {
+        return $this->hasMany(Uniform::class);
+    }
+
+    public function guardians()
+    {
+        return $this->hasMany(Guardian::class);
+    }
 }

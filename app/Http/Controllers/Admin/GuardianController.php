@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Parent;
+use App\Models\Guardian;
 use Illuminate\Http\Request;
 
-class ParentController extends Controller
+class GuardianController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $parents = Parent::all();
-        return view('admin.parents.index', compact('parents'));
+        $guardians = Guardian::all();
+        return view('admin.guardians.index', compact('guardians'));
     }
 
     /**
@@ -22,7 +22,7 @@ class ParentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.guardians.create');
     }
 
     /**

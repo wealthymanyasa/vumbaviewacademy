@@ -79,7 +79,7 @@
 
                         <td scope="row max-w-[200px] " colspan="7"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
-                            </p class="text-center">No students found</p>
+                            </p class="text-center">No fees payments found</p>
                         </td>
 
 

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BusLevyController;
 use App\Http\Controllers\Admin\FeeController;
-use App\Http\Controllers\Admin\ParentController;
+use App\Http\Controllers\Admin\GuardianController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\UniformController;
 use App\Http\Controllers\ProfileController;
@@ -41,7 +41,7 @@ Route::middleware('auth','admin')->name('admin.')->prefix('admin')->group(functi
     Route::resource('/students', StudentController::class);
     Route::resource('/fees', FeeController::class);
     Route::resource('/uniforms', UniformController::class);
-    Route::resource('/parents', ParentController::class);
+    Route::resource('/guardians', GuardianController::class);
     Route::resource('/buslevies', BusLevyController::class);
 
 });

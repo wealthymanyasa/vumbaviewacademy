@@ -33,14 +33,24 @@ class FeeController extends Controller
     public function store(FeeCreateRequest $request, Student $student)
     {
 
-        $student_id = $request->student_id;
-        $student = Student::find($student_id);
+        $student = Student::find($request->student_id);
+        if ($student == null) {
+            return to_route('admin.fees.create');
+        }
+        //create fee object
+        $fee = new Fee;
+        //if amount is grater than bill the return with error to user
+
+        if ($request->bill < $request->amount) {
+            $message = 'Enter amount less that student bill ';
+            //return with error to user
+            return to_route('admin.fees.create', $fee->id)->with('message',  $message);
+        }
 
         $feesBalance = $request->bill - $request->amount;
-       //dd($feesBalance);
-        //exit;
+
         // Create a new fee for the student
-        $fee = Fee::create([
+        $fee::create([
             'amount' => $request->amount,
             'bill' => $request->bill,
             'student_id' => $request->student_id,
@@ -65,24 +75,57 @@ class FeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Fee $fee,)
     {
-        //
+        return view('admin.fees.edit', compact('fee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Fee $fee)
     {
-        //
+        $request->validate([
+            'amount' => 'required',
+        ]);
+        //if amount is grater than bill the return with error to user
+        if ($request->bill < $request->amount) {
+            $message = 'Bill can not exceed amount';
+            return to_route('admin.fees.edit', $fee->id)->with('message',  $message);
+        }
+        /// find all old fees records
+        $oldFees = $fee::all();
+        // loop through old fees and get the old fee bill
+        foreach ($oldFees as $oldFee) {
+            //create new balance from old feebilll minus inputed amount
+            if ($oldFee->bill != $request->bill) {
+                // dd('bills are different');
+                // exitif bills are different then compute newbalance using old values
+                $newBalance = $request->bill - $request->amount;
+            } else {
+                $newBalance = $oldFee->bill - $request->amount;
+            }
+            // dd($oldFee->bill);
+            // exit;
+        }
+
+        $fee->update([
+            'amount' => $request->amount,
+            'bill' => $request->bill,
+            'balance' =>  $newBalance,
+            'dateOfPayment' => $request->dateOfPayment,
+
+        ]);
+
+        return to_route('admin.fees.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Fee $fee)
     {
-        //
+        $fee->delete();
+        return to_route('admin.fees.index');
     }
 }

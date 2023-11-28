@@ -48,7 +48,7 @@
                         <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
                             {{ __('Uniforms') }}
                         </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.parents.index')" :active="request()->routeIs('admin.parents.index')">
+                        <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
                             {{ __('Parents') }}
                         </x-admin-nav-link>
                         <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">

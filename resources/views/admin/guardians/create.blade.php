@@ -7,66 +7,60 @@
 
     <div class="">
 
-
-
         <div class="">
             <div class="flex justify-end m-2 p-2 ">
-                <a href="{{ route('admin.fees.index') }}"
+                <a href="{{ route('admin.guardians.index') }}"
                     class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
-                    Fees List</a>
+                    Guardians List</a>
             </div>
 
         </div>
         <div class=" flex justify-center">
             <div class="m-2  bg-purple-100 sm:w-[500px] w-full p-4 rounded-lg">
 
-                <form method="POST" action="{{ route('admin.fees.store') }}">
+                <form method="POST" action="{{ route('admin.guardians.store') }}">
                     @csrf
 
                     <div class="">
-                        <h2 class="text-xl font-bold text-purple-700 uppercase text-center">Create Fees Payment</h2>
-                    </div>
-                    @if (session('message'))
-                    <div class="w-full py-4 bg-pink-300 rounded-lg flex justify-center">
-                        <h2>{{ session('message') }}</h2>
-                    </div>
-                @endif
-                    <div class="mb-6  ">
-                        <label for="amount"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
-                        <input type="number" name="amount"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter amount">
+                        <h2 class="text-xl font-bold text-purple-700 uppercase text-center">Create Guardian Details</h2>
                     </div>
                     <div class="mb-6  ">
-                        <label for="bill"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill</label>
-                        <input type="number" name="bill"
+                        <label for="name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name</label>
+                        <input type="text" name="name"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter bill">
+                            placeholder="Enter name">
                     </div>
                     <div class="mb-6  ">
-                        <label for="studentId"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Id</label>
-                        <input type="number" name="student_id"
+                        <label for="surname"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">surname</label>
+                        <input type="text" name="surname"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter Student Id">
+                            placeholder="Enter surname">
+                    </div>
+                    <div class="mb-6  ">
+                        <label for="address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <input type="text" name="address"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            placeholder="Enter address">
+                    </div>
+                    <div class="mb-6  ">
+                        <label for="student_id"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">student_id</label>
+                        <input type="text" name="student_id"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            placeholder="Enter student_id">
                     </div>
 
-                    <div class="mb-6  ">
-                        <label for="dateOfPayment"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of Payment</label>
-                        <input type="datetime-local" name="dateOfPayment"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter Date Of Payment">
-                    </div>
+
 
 
 
                     <div class="flex justify-end m-2 p-2 ">
                         <button type="submit"
                             class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
-                            Create Payment</button>
+                            Create Guardian</button>
                     </div>
                 </form>
             </div>
