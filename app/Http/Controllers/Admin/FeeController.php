@@ -51,7 +51,7 @@ class FeeController extends Controller
         $feesBalance = $request->bill - $request->amount;
 
         // Create a new fee for the student
-        $fee::create([
+        $tuition = $fee::create([
             'amount' => $request->amount,
             'bill' => $request->bill,
             'student_id' => $request->student_id,
@@ -60,7 +60,7 @@ class FeeController extends Controller
         ]);
 
         // Save the fee for the student
-        $student->fees()->save($fee);
+        $student->fees()->save($tuition);
 
         return to_route('admin.fees.index');
     }

@@ -40,7 +40,7 @@ class BusLevyController extends Controller
         }
         //create buslevy object
         $buslevy = new BusLevy;
-        //if amount is grater than bill the return with error to user
+        //if amount is greater than bill then return with error to user
 
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
@@ -87,24 +87,57 @@ class BusLevyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(BusLevy $buslevy)
     {
-        //
+        return view('admin.buslevies.edit',  compact('buslevy'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, BusLevy $buslevy)
     {
-        //
+        $request->validate([
+            'amount' => 'required',
+        ]);
+        //if amount is grater than bill the return with error to user
+        if ($request->bill < $request->amount) {
+            $message = 'Enter amount less than the student bill';
+            return to_route('admin.buslevies.edit', $buslevy->id)->with('message',  $message);
+        }
+        /// find all old buslevies records
+        $oldBusLevies = $buslevy::all();
+        // loop through old fees and get the old fee bill
+        foreach ($oldBusLevies as $oldBusLevy) {
+            //create new balance from old feebilll minus inputed amount
+            if ($oldBusLevy->bill != $request->bill) {
+                // dd('bills are different');
+                // exitif bills are different then compute newbalance using old values
+                $newBalance = $request->bill - $request->amount;
+            } else {
+                $newBalance = $oldBusLevy->bill - $request->amount;
+            }
+            // dd($oldBusLevies->bill);
+            // exit;
+        }
+
+        $buslevy->update([
+            'amount' => $request->amount,
+            'bill' => $request->bill,
+            'balance' =>  $newBalance,
+            'dateOfPayment' => $request->dateOfPayment,
+
+        ]);
+
+        return to_route('admin.buslevies.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(BusLevy $buslevy)
     {
-        //
+        $buslevy->delete();
+        return to_route('admin.buslevies.index');
     }
 }

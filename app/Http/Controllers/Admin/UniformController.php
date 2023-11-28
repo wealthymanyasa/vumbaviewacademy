@@ -49,7 +49,7 @@ class UniformController extends Controller
         $uniformsBalance = $request->bill - $request->amount;
 
         // Create a new uniform payment for the student
-        $uniform::create([
+        $uniformPayment = $uniform::create([
             'amount' => $request->amount,
             'bill' => $request->bill,
             'student_id' => $request->student_id,
@@ -58,7 +58,7 @@ class UniformController extends Controller
         ]);
 
         // Save the uniform payment for the student
-        $student->uniforms()->save($uniform);
+        $student->uniforms()->save($uniformPayment);
 
         return to_route('admin.uniforms.index');
     }
