@@ -26,6 +26,9 @@
                             Amount
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Bill
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Balance
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -39,52 +42,57 @@
                 </thead>
                 <tbody>
                     @forelse ($uniforms as $uniform)
-                    <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $uniform->dateOfPayment }}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $uniform->amount }}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $uniform->balance }}
-                        </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $uniform->dateOfPayment }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $uniform->amount }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $uniform->bill }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $uniform->balance }}
+                            </td>
 
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $uniform->student_id }}
-                        </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $uniform->student_id }}
+                            </td>
 
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="flex space-x-2">
-                                <a href="{{ route('admin.uniforms.edit', $uniform->id) }}"
-                                    class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
-                                <form class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
-                                    method="POST" action="{{ route('admin.uniforms.destroy', $uniform->id) }}"
-                                    onSubmit="return confirm('Are you sure you want to delete?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex space-x-2">
+                                    <a href="{{ route('admin.uniforms.edit', $uniform->id) }}"
+                                        class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
+                                    <form
+                                        class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
+                                        method="POST" action="{{ route('admin.uniforms.destroy', $uniform->id) }}"
+                                        onSubmit="return confirm('Are you sure you want to delete?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
                         @empty
 
-                        <td scope="row max-w-[200px] " colspan="7"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
-                            </p class="text-center">No uniforms payments found</p>
-                        </td>
+                            <td scope="row max-w-[200px] " colspan="7"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
+                                </p class="text-center">No uniforms payments found</p>
+                            </td>
 
 
 
-                    </tr>
-                @endforelse
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

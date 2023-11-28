@@ -27,10 +27,10 @@
                         <h2 class="text-xl font-bold text-purple-700 uppercase text-center">Create Fees Payment</h2>
                     </div>
                     @if (session('message'))
-                    <div class="w-full py-4 bg-pink-300 rounded-lg flex justify-center">
-                        <h2>{{ session('message') }}</h2>
-                    </div>
-                @endif
+                        <div class="w-full py-4 bg-pink-300 rounded-lg flex justify-center">
+                            <h2>{{ session('message') }}</h2>
+                        </div>
+                    @endif
                     <div class="mb-6  ">
                         <label for="amount"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>

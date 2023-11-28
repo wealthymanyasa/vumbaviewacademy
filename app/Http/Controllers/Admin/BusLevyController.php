@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BusLevyCreateRequest;
 use App\Models\BusLevy;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class BusLevyController extends Controller
@@ -22,15 +24,56 @@ class BusLevyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.buslevies.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BusLevyCreateRequest $request, Student $student)
     {
-        //
+        //check if student id provided exists within the db
+        $student = Student::find($request->student_id);
+        if ($student == null) {
+            // if student id provided does not exist return with message
+            return to_route('admin.buslevies.create')->with('message', 'Student Id is not found');
+        }
+        //create buslevy object
+        $buslevy = new BusLevy;
+        //if amount is grater than bill the return with error to user
+
+        if ($request->bill < $request->amount) {
+            $message = 'Enter amount less than the student bill';
+            //return with error to user
+            return to_route('admin.buslevies.create', $buslevy->id)->with('message',  $message);
+        }
+         //get all students bus levies
+        //  $buslevies = BusLevy::all();
+        //  foreach ($buslevies as $buslevie){
+        //     $bstudent_id = $buslevie->student_id;
+        //  }
+
+        //  //if existing balance is notnull do this else
+        //  $latestLevy = BusLevy::where('student_id', $bstudent_id)->latest()->first();
+        //  dd($latestLevy);
+         //else compute $buslevyBalance
+        $buslevyBalance = $request->bill - $request->amount;
+
+        // Create a new buslevy for the student
+
+      $busfair = $buslevy::create([
+            'amount' => $request->amount,
+            'bill' => $request->bill,
+            'student_id' => $request->student_id,
+            'balance' => $buslevyBalance,
+            'dateOfPayment' => $request->dateOfPayment,
+        ]);
+        // dd($busfair ->amount);
+        // exit;
+        // Save the buslevy for the student
+        $student->buslevies()->save($busfair);
+
+        return to_route('admin.buslevies.index');
     }
 
     /**

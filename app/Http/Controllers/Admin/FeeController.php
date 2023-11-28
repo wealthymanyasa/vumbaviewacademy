@@ -32,17 +32,18 @@ class FeeController extends Controller
      */
     public function store(FeeCreateRequest $request, Student $student)
     {
-
+       //check if student id provided exists within the db
         $student = Student::find($request->student_id);
         if ($student == null) {
-            return to_route('admin.fees.create');
+           // if student id provided does not exist return with message
+            return to_route('admin.fees.create')->with('message', 'Student Id is not found');
         }
         //create fee object
         $fee = new Fee;
         //if amount is grater than bill the return with error to user
 
         if ($request->bill < $request->amount) {
-            $message = 'Enter amount less that student bill ';
+            $message = 'Enter amount less than the student bill';
             //return with error to user
             return to_route('admin.fees.create', $fee->id)->with('message',  $message);
         }
@@ -90,7 +91,7 @@ class FeeController extends Controller
         ]);
         //if amount is grater than bill the return with error to user
         if ($request->bill < $request->amount) {
-            $message = 'Bill can not exceed amount';
+            $message = 'Enter amount less than the student bill';
             return to_route('admin.fees.edit', $fee->id)->with('message',  $message);
         }
         /// find all old fees records

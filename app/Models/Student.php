@@ -32,4 +32,9 @@ class Student extends Model
     {
         return $this->hasMany(Guardian::class);
     }
+
+    public function buslevies()
+    {
+        return $this->hasMany(BusLevy::class);
+    }
 }

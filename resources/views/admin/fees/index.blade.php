@@ -27,6 +27,9 @@
                             Amount
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Bill
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Balance
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -49,6 +52,10 @@
                         <td scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $fee->amount }}
+                        </td>
+                        <td scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $fee->bill }}
                         </td>
                         <td scope="row max-w-[200px]"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

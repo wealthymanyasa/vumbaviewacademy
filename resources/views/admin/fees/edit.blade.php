@@ -64,10 +64,6 @@
                     @if ($errors->any())
                         {!! implode('', $errors->all('<div>:message</div>')) !!}
                     @endif
-                    @if (session('message'))
-                        <p>{{ session('message') }}</p>
-                    @endif
-
                     <div class="flex justify-end m-2 p-2 ">
                         <button type="submit"
                             class="p-2 px-4  bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">

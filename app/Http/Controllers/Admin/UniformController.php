@@ -32,15 +32,24 @@ class UniformController extends Controller
      */
     public function store(UniformCreateRequest $request ,Student $student)
     {
+
+        //check if student id provided exists within the db
         $student = Student::find($request->student_id);
-        if($student == null){
-            return to_route('admin.uniforms.create');
+        if ($student == null) {
+           // if student id provided does not exist return with message
+            return to_route('admin.uniforms.create')->with('message', 'Student Id is not found');
+        }
+        $uniform = new Uniform;
+
+        if ($request->bill < $request->amount) {
+            $message = 'Enter amount less than the student bill';
+            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message );
         }
 
         $uniformsBalance = $request->bill - $request->amount;
 
         // Create a new uniform payment for the student
-        $uniform = Uniform::create([
+        $uniform::create([
             'amount' => $request->amount,
             'bill' => $request->bill,
             'student_id' => $request->student_id,
@@ -77,7 +86,7 @@ class UniformController extends Controller
     {
         //if amount is grater than bill the return with error to user
         if ($request->bill < $request->amount) {
-            $message = 'Bill can not exceed amount';
+            $message = 'Enter amount less than the student bill';
             return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message );
         }
         /// find all old uniform records

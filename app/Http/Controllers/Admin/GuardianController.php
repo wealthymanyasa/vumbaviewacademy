@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GuardianCreateRequest;
 use App\Models\Guardian;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class GuardianController extends Controller
@@ -28,9 +30,24 @@ class GuardianController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GuardianCreateRequest $request)
     {
-        //
+          //check if student id provided exists within the db
+          $student = Student::find($request->student_id);
+          if ($student == null) {
+             // if student id provided does not exist return with message
+              return to_route('admin.guardians.create')->with('message', 'Student Id is not found');
+          }
+        Guardian::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'dateOfEnrolment' => $request->dateOfEnrolment,
+            'student_id' => $request->student_id
+        ]);
+
+        return to_route('admin.guardians.index');
     }
 
     /**
@@ -44,24 +61,35 @@ class GuardianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Guardian $guardian)
     {
-        //
+        return view('admin.guardians.edit', compact('guardian'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Guardian $guardian)
     {
-        //
+        $guardian->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'dateOfEnrolment' => $request->dateOfEnrolment,
+
+        ]);
+
+        return to_route('admin.guardians.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Guardian $guardian)
     {
-        //
+        $guardian->delete();
+
+        return to_route('admin.guardians.index');
     }
 }
