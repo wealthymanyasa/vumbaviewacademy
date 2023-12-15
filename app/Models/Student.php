@@ -37,4 +37,11 @@ class Student extends Model
     {
         return $this->hasMany(BusLevy::class);
     }
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
+
+
 }

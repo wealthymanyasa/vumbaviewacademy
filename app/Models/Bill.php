@@ -5,14 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Guardian extends Model
+class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'surname', 'phone', 'address', 'student_id'];
+    protected $fillable = [
+        'student_id',
+        'bill_amount',
+        'bill_type',
+        'academic_year',
+        'term'
+    ];
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
+
 }

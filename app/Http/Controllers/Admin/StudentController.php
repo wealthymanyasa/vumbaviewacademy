@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentCreateRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
 
 class StudentController extends Controller
 {
@@ -15,6 +16,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::All();
+
         return view('admin.students.index', compact('students'));
     }
 
@@ -31,6 +33,36 @@ class StudentController extends Controller
      */
     public function store(StudentCreateRequest $request)
     {
+
+        $request->validate([
+
+            'dateOfBirth' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    // Check if the child is 3 years or older
+                    $threeYearsAgo = now()->subYears(3);
+                    $attribute = "date of birth";
+                    if (strtotime($value) > strtotime($threeYearsAgo)) {
+                        $fail("The selected $attribute must be for a child who is 3 years or older.");
+                    }
+                },
+            ],
+            'dateOfEnrolment' => [
+                'required',
+                'date',
+                function ( $attribute ,$value, $fail) {
+                    // Disable dates after today's date
+                    $maxAllowedDate = now()->format('Y-m-d');
+                    $attribute = "date of enrollment";
+                    if (strtotime($value) > strtotime($maxAllowedDate)) {
+                        $fail("The selected $attribute must be on or before $maxAllowedDate.");
+                    }
+                },
+            ],
+
+        ]);
+
         Student::create([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -47,9 +79,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        return view('admin.students.details',
+        ['student' => $student ]);
     }
 
     /**
@@ -89,5 +122,8 @@ class StudentController extends Controller
     {
         $student->delete();
         return to_route('admin.students.index');
+    }
+
+    public function details(){
     }
 }

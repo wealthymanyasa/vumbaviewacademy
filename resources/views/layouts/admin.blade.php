@@ -7,10 +7,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -36,24 +41,27 @@
                 <nav :class="{ 'block': open, 'hidden': !open }"
                     class="flex-grow px-4 pb-4 pt-8 md:block md:pb-0 md:overflow-y-auto">
 
-                        <x-admin-nav-link :href="route('admin.index')" :active="request()->routeIs('adminx.index')">
-                            {{ __('Dashboard') }}
-                        </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
-                            {{ __('Students') }}
-                        </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.fees.index')" :active="request()->routeIs('admin.fees.index')">
-                            {{ __('Fees') }}
-                        </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
-                            {{ __('Uniforms') }}
-                        </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
-                            {{ __('Parents') }}
-                        </x-admin-nav-link>
-                        <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">
-                            {{ __('Bus Levy') }}
-                        </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.index')" :active="request()->routeIs('adminx.index')">
+                        {{ __('Dashboard') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
+                        {{ __('Students') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.fees.index')" :active="request()->routeIs('admin.fees.index')">
+                        {{ __('Fees') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
+                        {{ __('Uniforms') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
+                        {{ __('Parents') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">
+                        {{ __('Bus Levy') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.bills.index')" :active="request()->routeIs('admin.parents.index')">
+                        {{ __('Billing') }}
+                    </x-admin-nav-link>
 
                     <div @click.away="open = false" class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
@@ -85,7 +93,71 @@
 
             </div>
             <main class="w-full">
+                <div>
+                    @if (session()->has('info'))
+                        <div id="alert-border-1"
+                            class="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                Info alert {{ session()->get('info') }}
+                            </div>
 
+                        </div>
+                    @endif
+                    @if (session()->has('danger'))
+                        <div id="alert-border-2"
+                            class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                <span class="font-bold"></span> {{ session()->get('danger') }}
+                            </div>
+
+                        </div>
+                    @endif
+                    @if (session()->has('success'))
+                        <div id="alert-border-3"
+                            class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                <span class="font-bold"></span> {{ session()->get('success') }}
+                            </div>
+
+                        </div>
+                    @endif
+                    @if (session()->has('warning'))
+                        <div id="alert-border-4"
+                            class="flex items-center p-4 mb-4 text-yellow-800 border-t-4 border-yellow-300 bg-yellow-50 dark:text-yellow-300 dark:bg-gray-800 dark:border-yellow-800"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                <span class="font-bold">{{ session()->get('warning') }}
+
+                            </div>
+
+                        </div>
+                    @endif
+
+
+                </div>
                 {{ $slot }}
 
             </main>
@@ -93,6 +165,19 @@
 
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $('#feesTable').DataTable();
+        $('#busleviesTable').DataTable();
+        $('#billsTable').DataTable();
+        $('#uniformsTable').DataTable();
+        $('#parentsTable').DataTable();
+    });
+</script>
 </body>
 
 </html>

@@ -15,7 +15,8 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        $guardians = Guardian::all();
+        $guardians = Guardian::with('student')->get();
+
         return view('admin.guardians.index', compact('guardians'));
     }
 
@@ -32,6 +33,7 @@ class GuardianController extends Controller
      */
     public function store(GuardianCreateRequest $request)
     {
+
           //check if student id provided exists within the db
           $student = Student::find($request->student_id);
           if ($student == null) {

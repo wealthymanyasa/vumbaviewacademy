@@ -15,7 +15,10 @@ class UniformController extends Controller
      */
     public function index()
     {
-        $uniforms = Uniform::all();
+        $uniforms = Uniform::with('student')->get();;
+        // foreach($uniforms as $uniform){
+        //     dd($uniform->student->name);
+        // }
         return view('admin.uniforms.index', compact('uniforms'));
     }
 
@@ -30,20 +33,20 @@ class UniformController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UniformCreateRequest $request ,Student $student)
+    public function store(UniformCreateRequest $request, Student $student)
     {
 
         //check if student id provided exists within the db
         $student = Student::find($request->student_id);
         if ($student == null) {
-           // if student id provided does not exist return with message
+            // if student id provided does not exist return with message
             return to_route('admin.uniforms.create')->with('message', 'Student Id is not found');
         }
         $uniform = new Uniform;
 
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
-            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message );
+            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message);
         }
 
         $uniformsBalance = $request->bill - $request->amount;
@@ -87,20 +90,18 @@ class UniformController extends Controller
         //if amount is grater than bill the return with error to user
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
-            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message );
+            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message);
         }
         /// find all old uniform records
         $oldUniformPayments = $uniform::all();
-// loop through old fees and get the old uniform bill
+        // loop through old fees and get the old uniform bill
         foreach ($oldUniformPayments as $oldUniformPayment) {
             //create new balance from old uniform bill minus inputed amount
-            if($oldUniformPayment->bill != $request->bill) {
+            if ($oldUniformPayment->bill != $request->bill) {
                 // dd('uniforms payment are different');
                 // exit if bills are different then compute newbalance using old values
                 $newBalance = $request->bill - $request->amount;
-
-            }
-            else {
+            } else {
                 //else compute newbalance using new values
                 $newBalance = $oldUniformPayment->bill - $request->amount;
             }

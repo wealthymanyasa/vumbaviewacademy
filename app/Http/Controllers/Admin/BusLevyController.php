@@ -15,7 +15,8 @@ class BusLevyController extends Controller
      */
     public function index()
     {
-        $buslevies = BusLevy::all();
+        $buslevies = BusLevy::with('student')->get();
+
         return view('admin.buslevies.index', compact('buslevies'));
     }
 

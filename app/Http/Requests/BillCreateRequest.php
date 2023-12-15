@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FeeCreateRequest extends FormRequest
+class BillCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,11 @@ class FeeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => ['required'],
-            //'bill',
-            'balance',
-            'student_id' => ['required'],
-            'dateOfPayment' => ['required'],
+           'bill_amount' => ['required'],
+           'bill_type' => ['required'],
+           'student_id' => ['required'],
+           'academic_year'=> ['required'],
+           'term'=> ['required'],
         ];
     }
 }

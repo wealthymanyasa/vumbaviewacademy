@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\BusLevyController;
 use App\Http\Controllers\Admin\FeeController;
 use App\Http\Controllers\Admin\GuardianController;
@@ -43,6 +44,7 @@ Route::middleware('auth','admin')->name('admin.')->prefix('admin')->group(functi
     Route::resource('/uniforms', UniformController::class);
     Route::resource('/guardians', GuardianController::class);
     Route::resource('/buslevies', BusLevyController::class);
+    Route::resource('/bills', BillController::class);
 
 });
 
