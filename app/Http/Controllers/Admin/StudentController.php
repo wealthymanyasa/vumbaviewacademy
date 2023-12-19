@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentCreateRequest;
 use App\Models\Student;
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
@@ -73,21 +74,21 @@ class StudentController extends Controller
         }
         //dd($studentHasbirthEntryNumber);
         if ($studentHasbirthEntryNumber == $request->birthEntryNumber) {
-            return to_route('admin.students.create')->with('message', 'Please enter a different birth entry number');
+            return to_route('admin.students.create')->with('danger', 'Please enter a different birth entry number');
         }
+                // format the date to display only the date part
 
         Student::create([
-
             'name' => $request->name,
             'surname' => $request->surname,
-            'dateOfBirth' => $request->dateOfBirth,
+            'dateOfBirth' => $request->dateOfBirth ,
             'birthEntryNumber' => $request->birthEntryNumber,
             'dateOfEnrolment' => $request->dateOfEnrolment,
             'studentType' => $request->studentType
 
         ]);
 
-        return to_route('admin.students.index');
+        return to_route('admin.students.index')->with('success', 'Student created successfully');;
     }
 
     /**
@@ -128,7 +129,7 @@ class StudentController extends Controller
             'studentType' => $request->studentType
         ]);
 
-        return to_route('admin.students.index');
+        return to_route('admin.students.index')->with('info', 'Student updated successfully');
     }
 
     /**
@@ -137,10 +138,6 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        return to_route('admin.students.index');
-    }
-
-    public function details()
-    {
+        return to_route('admin.students.index')->with('warning', 'Student deleted successfully');;
     }
 }

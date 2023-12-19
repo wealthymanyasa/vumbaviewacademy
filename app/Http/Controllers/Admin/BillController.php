@@ -40,38 +40,45 @@ class BillController extends Controller
             // if student id provided does not exist return with message
             return to_route('admin.bills.create')->with('message', 'Student ID is not found');
         }
+        //   //check if student has bill for the current enrolment term
+        //   $studentTotalBillAmount = Bill::where('student_id', $request->student_id)->get()->sum('bill_amount');
+        //  // dd($studentTotalBill);
+        //  $studentTotalBill = $studentTotalBillAmount + $request->bill_amount;
         //check if student has bill for the current enrolment term
         $studentBills = Bill::where('student_id', $request->student_id)
             ->where('academic_year', $request->academic_year)
             ->where('bill_type', $request->bill_type)
             ->where('term', $request->term)
             ->get();
-        $studentBillId ='';
-          //  dd(json_encode($studentBills));
+        $studentBillId = '';
+        //  dd(json_encode($studentBills));
         foreach ($studentBills as $studentBill) {
-             //dd($studentBill->student_id);
+            //dd($studentBill->student_id);
             $studentBillId = $studentBill->student_id;
         }
-            //check if bill exists
-            if ($studentBillId == "") {
-               // dd("null stndt id");
-                //create bill
-                Bill::create([
-                    'bill_amount' => $request->bill_amount,
-                    'bill_type' => $request->bill_type,
-                    'student_id' => $request->student_id,
-                    'academic_year' => $request->academic_year,
-                    'term' => $request->term,
-                ]);
-            } else {
-                // if bill exists return with message
-                return to_route('admin.bills.create')->with('message', 'Can not create duplicate bill for student');
-            }
+        //check if bill exists
+        if ($studentBillId == "") {
+
+            //add previously billed amount
+
+            //create bill
+            //dd($studentTotalBill);
+            Bill::create([
+                'bill_amount' => $request->bill_amount,
+                'bill_type' => $request->bill_type,
+                'student_id' => $request->student_id,
+                'academic_year' => $request->academic_year,
+                'term' => $request->term,
+            ]);
+        } else {
+            // if bill exists return with message
+            return to_route('admin.bills.create')->with('warning', 'Can not create duplicate bill for student');
+        }
 
 
 
 
-        return to_route('admin.bills.index')->with('success', 'Bll saved successfully');;
+        return to_route('admin.bills.index')->with('success', 'Bill created successfully');;
     }
 
     /**
@@ -95,28 +102,50 @@ class BillController extends Controller
      */
     public function update(Request $request, Bill $bill)
     {
-        $request->validate([
-            'bill_amount' => 'required',
-            'bill_type' => 'required',
-            'academic_year' => 'required',
-            'term' => 'required',
-        ]);
-        $bill->update([
-            'bill_amount' => $request->bill_amount,
-            'bill_type' => $request->bill_type,
-            'academic_year' => $request->academic_year,
-            'term' => $request->term,
-        ]);
+        //check if student has bill for the current enrolment term
+        $studentBills = Bill::where('student_id', $bill->student_id)
+            ->where('academic_year', $request->academic_year)
+            ->where('bill_type', $request->bill_type)
+            ->where('term', $request->term)
+            ->get();
+        $studentBillId = '';
+        //  dd(json_encode($studentBills));
+        foreach ($studentBills as $studentBill) {
+            //dd($studentBill->student_id);
+            $studentBillId = $studentBill->student_id;
+        }
+        //check if bill exists
+        if ($studentBillId == "") {
+            $request->validate([
+                'bill_amount' => 'required',
+                'bill_type' => 'required',
+                'academic_year' => 'required',
+                'term' => 'required',
+            ]);
+            $bill->update([
+                'bill_amount' => $request->bill_amount,
+                'bill_type' => $request->bill_type,
+                'academic_year' => $request->academic_year,
+                'term' => $request->term,
+            ]);
 
-        return to_route('admin.bills.index')->with('success', 'Bill updated saved successfully');;
+            return to_route('admin.bills.index')->with('info', 'Bill updated successfully');
+        } else {
+            // if bill exists return with message
+            return to_route('admin.bills.create')->with('warning', 'Can not create duplicate bill for student');
+        }
+
+
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bill $bill)
+    public function destroy(Bill $bill, Request $request)
     {
         $bill->delete();
-        return to_route('admin.bills.index')->with('danger', 'Bill updated saved successfully');;
+        return to_route('admin.bills.index')->with('warning', 'Bill deleted successfully');;
     }
 }

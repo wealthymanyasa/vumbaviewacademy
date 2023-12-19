@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->dateTime('dateOfBirth');
-            $table->dateTime('dateOfEnrolment');
+            $table->string('dateOfBirth');
+            $table->string('dateOfEnrolment');
             $table->char('birthEntryNumber')->unique() ;
             $table->enum('studentType',array('primary', 'secondary'));
             $table->timestamps();

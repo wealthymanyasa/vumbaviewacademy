@@ -38,7 +38,7 @@ class GuardianController extends Controller
           $student = Student::find($request->student_id);
           if ($student == null) {
              // if student id provided does not exist return with message
-              return to_route('admin.guardians.create')->with('message', 'Student Id is not found');
+              return to_route('admin.guardians.create')->with('danger', 'Student Id is not found');
           }
         Guardian::create([
             'name' => $request->name,
@@ -82,7 +82,7 @@ class GuardianController extends Controller
 
         ]);
 
-        return to_route('admin.guardians.index')->with('success', 'Parent or Guardian infomation updated successfully');
+        return to_route('admin.guardians.index')->with('info', 'Parent or Guardian infomation updated successfully');
     }
 
     /**

@@ -39,7 +39,7 @@ class FeeController extends Controller
         $student = Student::find($request->student_id);
         if ($student == null) {
             // if student id provided does not exist return with message
-            return to_route('admin.fees.create')->with('message', 'Student Id is not found');
+            return to_route('admin.fees.create')->with('danger', 'Student Id is not found');
         }
         //dd($request->term);
         //check bill balance for particular student for period chosen for payment
@@ -60,7 +60,7 @@ class FeeController extends Controller
         }
         //Sdd($billToSave);
         if ($billToSave == "") {
-            return to_route('admin.fees.create')->with('message', 'Create student bill first');
+            return to_route('admin.fees.create')->with('warning', 'Create student bill first');
         }
         //Update bill in storage.
         Bill::where('student_id', $billId)
@@ -154,7 +154,7 @@ class FeeController extends Controller
 
         ]);
 
-        return to_route('admin.fees.index')->with('success', 'Fees payment updated successfully');
+        return to_route('admin.fees.index')->with('info', 'Fees payment updated successfully');
     }
 
     /**

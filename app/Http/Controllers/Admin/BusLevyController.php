@@ -104,7 +104,7 @@ class BusLevyController extends Controller
         //if amount is grater than bill the return with error to user
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
-            return to_route('admin.buslevies.edit', $buslevy->id)->with('message',  $message);
+            return to_route('admin.buslevies.edit', $buslevy->id)->with('warning', $message);
         }
         /// find all old buslevies records
         $oldBusLevies = $buslevy::all();
@@ -130,7 +130,7 @@ class BusLevyController extends Controller
 
         ]);
 
-        return to_route('admin.buslevies.index')->with('success', 'Bus Levy payment updated successfully');;
+        return to_route('admin.buslevies.index')->with('info', 'Bus Levy payment updated successfully');;
     }
 
     /**

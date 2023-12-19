@@ -22,8 +22,9 @@ class Bill extends Model
         return $this->belongsTo(Student::class);
     }
 
-    // public function fee()
-    // {
-    //     return $this->belongsTo(Fee::class);
-    // }
+    public function fee()
+    {
+        return $this->hasMany(Fee::class);
+    }
+
 }

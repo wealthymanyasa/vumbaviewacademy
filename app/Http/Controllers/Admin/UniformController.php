@@ -40,13 +40,13 @@ class UniformController extends Controller
         $student = Student::find($request->student_id);
         if ($student == null) {
             // if student id provided does not exist return with message
-            return to_route('admin.uniforms.create')->with('message', 'Student Id is not found');
+            return to_route('admin.uniforms.create')->with('danger', 'Student Id is not found');
         }
         $uniform = new Uniform;
 
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
-            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message);
+            return to_route('admin.uniforms.edit', $uniform->id)->with('danger',  $message);
         }
 
         $uniformsBalance = $request->bill - $request->amount;
@@ -90,7 +90,7 @@ class UniformController extends Controller
         //if amount is grater than bill the return with error to user
         if ($request->bill < $request->amount) {
             $message = 'Enter amount less than the student bill';
-            return to_route('admin.uniforms.edit', $uniform->id)->with('message',  $message);
+            return to_route('admin.uniforms.edit', $uniform->id)->with('danger',  $message);
         }
         /// find all old uniform records
         $oldUniformPayments = $uniform::all();
@@ -116,7 +116,7 @@ class UniformController extends Controller
             'dateOfPayment' => $request->dateOfPayment,
         ]);
 
-        return to_route('admin.uniforms.index')->with('success', 'Uniforms payment updated successfully');
+        return to_route('admin.uniforms.index')->with('info', 'Uniforms payment updated successfully');
     }
 
     /**
