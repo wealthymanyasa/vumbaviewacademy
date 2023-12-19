@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +10,16 @@ class Student extends Model
 {
     use HasFactory;
 
+    public static function boot()
+{
+    parent::boot();
+    self::creating(function ($model) {
+        $model->id = IdGenerator::generate(['table' => 'students', 'length' => 10,'prefix' => date('dmy')]);
+    });
+}
+
     protected $fillable = [
+        'id' => 'string',
         'name',
         'surname',
         'dateOfBirth',
@@ -17,6 +27,7 @@ class Student extends Model
         'dateOfEnrolment',
         'studentType'
     ];
+
 
     public function fees()
     {

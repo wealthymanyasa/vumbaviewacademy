@@ -9,7 +9,15 @@ class Fee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['amount', 'bill','student_id','balance', 'dateOfPayment'];
+    protected $fillable = [
+        'amount',
+        'student_id',
+        'balance',
+        'dateOfPayment',
+        'bill_type',
+        'academic_year',
+        'term'
+    ];
 
     public function student()
     {

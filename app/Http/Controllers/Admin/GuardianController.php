@@ -49,7 +49,7 @@ class GuardianController extends Controller
             'student_id' => $request->student_id
         ]);
 
-        return to_route('admin.guardians.index');
+        return to_route('admin.guardians.index')->with('info', 'Parent or Guardian infomation saved successfully');;
     }
 
     /**
@@ -82,7 +82,7 @@ class GuardianController extends Controller
 
         ]);
 
-        return to_route('admin.guardians.index');
+        return to_route('admin.guardians.index')->with('success', 'Parent or Guardian infomation updated successfully');
     }
 
     /**
@@ -92,6 +92,6 @@ class GuardianController extends Controller
     {
         $guardian->delete();
 
-        return to_route('admin.guardians.index');
+        return to_route('admin.guardians.index')->with('warning', 'Parent or Guardian infomation deleted successfully');
     }
 }

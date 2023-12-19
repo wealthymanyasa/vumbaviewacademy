@@ -63,7 +63,7 @@ class UniformController extends Controller
         // Save the uniform payment for the student
         $student->uniforms()->save($uniformPayment);
 
-        return to_route('admin.uniforms.index');
+        return to_route('admin.uniforms.index')->with('success', 'Uniforms payment saved successfully');
     }
 
     /**
@@ -116,7 +116,7 @@ class UniformController extends Controller
             'dateOfPayment' => $request->dateOfPayment,
         ]);
 
-        return to_route('admin.uniforms.index');
+        return to_route('admin.uniforms.index')->with('success', 'Uniforms payment updated successfully');
     }
 
     /**
@@ -126,6 +126,6 @@ class UniformController extends Controller
     {
         $uniform->delete();
 
-        return to_route('admin.uniforms.index');
+        return to_route('admin.uniforms.index')->with('warning', 'Uniforms payment saved successfully');;
     }
 }

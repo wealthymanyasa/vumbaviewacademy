@@ -41,35 +41,47 @@ class FeeController extends Controller
             // if student id provided does not exist return with message
             return to_route('admin.fees.create')->with('message', 'Student Id is not found');
         }
-        //check bill balance for particular student
-        $studentBillBalances = Bill::where('student_id', $request->student_id)->where('bill_type', 'fees')->get();
+        //dd($request->term);
+        //check bill balance for particular student for period chosen for payment
+        $studentBillBalances = Bill::where('student_id', $request->student_id)
+            ->where('bill_type', 'fees')
+            ->where('academic_year', $request->academic_year)
+            ->where('term', $request->term)
+            ->get();
+
+        $billToSave = "";
+        $billId = "";
+        // dd($request->amount);
         foreach ($studentBillBalances as $studentBillBalance) {
-            // dd($studentBillBalance->bill_amount);
+            //dd($studentBillBalance->bill_amount);
             // deduct inputed amount from bill amount
             $billToSave = $studentBillBalance->bill_amount - $request->amount;
             $billId = $studentBillBalance->student_id;
-
-            //Update bill in storage.
-            Bill::where('student_id', $billId)
-                ->update(['bill_amount' => $billToSave,]);
-            // Create a new fee for the student
-            $tuition = Fee::create([
-                'amount' => $request->amount,
-                'student_id' => $request->student_id,
-                'balance' => $billToSave,
-                'dateOfPayment' => $request->dateOfPayment,
-            ]);
         }
-
-
+        //Sdd($billToSave);
+        if ($billToSave == "") {
+            return to_route('admin.fees.create')->with('message', 'Create student bill first');
+        }
+        //Update bill in storage.
+        Bill::where('student_id', $billId)
+            ->where('bill_type', 'fees')
+            ->where('academic_year', $request->academic_year)
+            ->where('term', $request->term)
+            ->update(['bill_amount' => $billToSave,]);
+        // Create a new fee for the student
+        $tuition = Fee::create([
+            'amount' => $request->amount,
+            'student_id' => $request->student_id,
+            'balance' => $billToSave,
+            'dateOfPayment' => $request->dateOfPayment,
+            'academic_year' => $request->academic_year,
+            'bill_type' => $request->bill_type,
+            'term' => $request->term,
+        ]);
         // Save the fee for the student
         $student->fees()->save($tuition);
-        $bills = Bill::all();
-        foreach ($bills as $bill) {
-            $bill_balance = $bill->bill_amount;
-        }
-        //dd();
-        return to_route('admin.fees.index', ['bill_balance' => $bill_balance])->with('success', 'Fees payment saved successfully');
+
+        return to_route('admin.fees.index')->with('success', 'Fees payment saved successfully');
     }
 
     /**
@@ -105,8 +117,12 @@ class FeeController extends Controller
         }
         //update bill
         $billToSave = $studentBill - $request->amount;
-        // dd($billToSave);
-        $this->updateBill($billToSave, $billId);
+         dd($billToSave);
+        $bill = new Bill();
+        $bill->update([
+            'student_id' => $billId,
+            'bill_amount' => $billToSave,
+        ]);
         // dd($studentBill);
         //if amount is grater than bill the return with error to user
         if ($studentBill < $request->amount) {

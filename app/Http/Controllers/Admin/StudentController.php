@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentCreateRequest;
 use App\Models\Student;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Validator;
 
@@ -51,7 +52,7 @@ class StudentController extends Controller
             'dateOfEnrolment' => [
                 'required',
                 'date',
-                function ( $attribute ,$value, $fail) {
+                function ($attribute, $value, $fail) {
                     // Disable dates after today's date
                     $maxAllowedDate = now()->format('Y-m-d');
                     $attribute = "date of enrollment";
@@ -62,8 +63,21 @@ class StudentController extends Controller
             ],
 
         ]);
+        //check if birth entry number exists
+        $student = Student::where('birthEntryNumber', $request->birthEntryNumber)->get();
+
+        $studentHasbirthEntryNumber = '';
+        foreach ($student as $student) {
+            $studentHasbirthEntryNumber = $student->birthEntryNumber;
+            //dd($studentHas);
+        }
+        //dd($studentHasbirthEntryNumber);
+        if ($studentHasbirthEntryNumber == $request->birthEntryNumber) {
+            return to_route('admin.students.create')->with('message', 'Please enter a different birth entry number');
+        }
 
         Student::create([
+
             'name' => $request->name,
             'surname' => $request->surname,
             'dateOfBirth' => $request->dateOfBirth,
@@ -81,8 +95,10 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('admin.students.details',
-        ['student' => $student ]);
+        return view(
+            'admin.students.details',
+            ['student' => $student]
+        );
     }
 
     /**
@@ -124,6 +140,7 @@ class StudentController extends Controller
         return to_route('admin.students.index');
     }
 
-    public function details(){
+    public function details()
+    {
     }
 }

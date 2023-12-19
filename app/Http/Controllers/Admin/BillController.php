@@ -71,7 +71,7 @@ class BillController extends Controller
 
 
 
-        return to_route('admin.bills.index');
+        return to_route('admin.bills.index')->with('success', 'Bll saved successfully');;
     }
 
     /**
@@ -108,7 +108,7 @@ class BillController extends Controller
             'term' => $request->term,
         ]);
 
-        return to_route('admin.bills.index');
+        return to_route('admin.bills.index')->with('success', 'Bill updated saved successfully');;
     }
 
     /**
@@ -117,6 +117,6 @@ class BillController extends Controller
     public function destroy(Bill $bill)
     {
         $bill->delete();
-        return to_route('admin.bills.index');
+        return to_route('admin.bills.index')->with('danger', 'Bill updated saved successfully');;
     }
 }

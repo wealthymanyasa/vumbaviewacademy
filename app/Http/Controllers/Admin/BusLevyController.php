@@ -74,7 +74,7 @@ class BusLevyController extends Controller
         // Save the buslevy for the student
         $student->buslevies()->save($busfair);
 
-        return to_route('admin.buslevies.index');
+        return to_route('admin.buslevies.index')->with('success', 'Bus Levy payment saved successfully');
     }
 
     /**
@@ -130,7 +130,7 @@ class BusLevyController extends Controller
 
         ]);
 
-        return to_route('admin.buslevies.index');
+        return to_route('admin.buslevies.index')->with('success', 'Bus Levy payment updated successfully');;
     }
 
     /**
@@ -139,6 +139,6 @@ class BusLevyController extends Controller
     public function destroy(BusLevy $buslevy)
     {
         $buslevy->delete();
-        return to_route('admin.buslevies.index');
+        return to_route('admin.buslevies.index')->with('warning', 'Bus Levy payment deleted successfully');;
     }
 }
