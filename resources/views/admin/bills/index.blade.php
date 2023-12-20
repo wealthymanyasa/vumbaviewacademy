@@ -26,13 +26,13 @@
                             Surname
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Bill Amount
+                          Amount
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Bill Type
+                            Type
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Academic Year
+                            Year
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Term
@@ -50,11 +50,12 @@
 
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $bill->student->name }}
+
+                                {{ $bill->student->name ?? '' }}
                             </td>
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $bill->student->surname }}
+                                {{ $bill->student->surname ?? '' }}
                             </td>
                             <td scope="row max-w-[200px]"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -78,8 +79,6 @@
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex space-x-2">
-                                    <a href="{{ route('admin.bills.show', $bill->id) }} "
-                                        class="px-4 py-2 bg-cyan-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">View</a>
                                     <a href="{{ route('admin.bills.edit', $bill->id) }} "
                                         class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
                                     <form
@@ -92,14 +91,14 @@
                                     </form>
                                 </div>
                             </td>
-                            @empty
+                        @empty
 
                             <td scope="row max-w-[200px] " colspan="7"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
                                 </p class="text-center">No bills found</p>
                             </td>
                         </tr>
-                        @endforelse
+                    @endforelse
                 </tbody>
             </table>
         </div>

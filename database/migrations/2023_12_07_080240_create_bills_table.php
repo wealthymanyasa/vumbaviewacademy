@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->decimal('bill_amount');
             $table->string('bill_type');
-            $table->string('student_id');
             $table->integer('academic_year');
             $table->string('term');
+            // Foreign key relationship with 'students' table
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

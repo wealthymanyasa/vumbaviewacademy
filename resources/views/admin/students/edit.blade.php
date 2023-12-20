@@ -43,7 +43,7 @@
                     <div class="mb-6  ">
                         <label for="dateOfBirth"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of Birth</label>
-                        <input type="datetime-local" name="dateOfBirth"
+                        <input type="date" name="dateOfBirth"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
                             value="{{ $student->dateOfBirth }}">
                     </div>
@@ -59,7 +59,7 @@
                         <label for="dateOfEnrolment"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of
                             Enrolment</label>
-                        <input type="datetime-local" name="dateOfEnrolment"
+                        <input type="date" name="dateOfEnrolment"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
                             value="{{ $student->dateOfEnrolment }}">
                     </div>
