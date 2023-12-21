@@ -9,7 +9,15 @@ class Uniform extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['amount', 'bill','student_id','balance', 'dateOfPayment'];
+    protected $fillable =[
+        'amount',
+        'student_id',
+        'balance',
+        'date_of_payment',
+        'bill_type',
+        'academic_year',
+        'term'
+    ];
 
     public function student()
     {

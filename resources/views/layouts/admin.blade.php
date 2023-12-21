@@ -47,20 +47,22 @@
                     <x-admin-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
                         {{ __('Students') }}
                     </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.bills.index')" :active="request()->routeIs('admin.parents.index')">
+                        {{ __('Billing') }}
+                    </x-admin-nav-link>
+
                     <x-admin-nav-link :href="route('admin.fees.index')" :active="request()->routeIs('admin.fees.index')">
                         {{ __('Fees') }}
                     </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
                         {{ __('Uniforms') }}
                     </x-admin-nav-link>
-                    <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
-                        {{ __('Parents') }}
-                    </x-admin-nav-link>
+
                     <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">
                         {{ __('Bus Levy') }}
                     </x-admin-nav-link>
-                    <x-admin-nav-link :href="route('admin.bills.index')" :active="request()->routeIs('admin.parents.index')">
-                        {{ __('Billing') }}
+                    <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
+                        {{ __('Parents') }}
                     </x-admin-nav-link>
 
                     <div @click.away="open = false" class="relative" x-data="{ open: false }">

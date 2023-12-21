@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('uniforms', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('amount');
-            $table->bigInteger('bill');
             $table->bigInteger('balance')->nullable();
-            $table->string('dateOfPayment');
+            $table->string('date_of_payment');
+            $table->string('term');
+            $table->string('bill_type');
+            $table->bigInteger('academic_year');
             $table->unsignedBigInteger('student_id');
             // Foreign key relationship
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');

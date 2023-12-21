@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BusLevyCreateRequest;
+use App\Models\Bill;
 use App\Models\BusLevy;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -34,45 +35,55 @@ class BusLevyController extends Controller
     public function store(BusLevyCreateRequest $request, Student $student)
     {
         //check if student id provided exists within the db
+        //check if student id provided exists within the db
         $student = Student::find($request->student_id);
         if ($student == null) {
             // if student id provided does not exist return with message
-            return to_route('admin.buslevies.create')->with('message', 'Student Id is not found');
+            return to_route('admin.buslevies.create')->with('warning', 'Student Identification Number is not found');
         }
-        //create buslevy object
-        $buslevy = new BusLevy;
-        //if amount is greater than bill then return with error to user
 
-        if ($request->bill < $request->amount) {
-            $message = 'Enter amount less than the student bill';
-            //return with error to user
-            return to_route('admin.buslevies.create', $buslevy->id)->with('message',  $message);
+        //check if student bill exist
+        //dd($request->term);
+        //check bill balance for particular student for period chosen for payment
+        $studentBillBalances = Bill::where('student_id', $request->student_id)
+            ->where('bill_type', 'Buslevies')
+            ->where('academic_year', $request->academic_year)
+            ->where('term', $request->term)
+            ->get();
+
+        $billToSave = "";
+        $billId = "";
+
+        foreach ($studentBillBalances as $studentBillBalance) {
+            //dd($studentBillBalance->bill_amount);
+            // deduct inputed amount from bill amount
+            $billToSave = $studentBillBalance->bill_amount - $request->amount;
+            $billId = $studentBillBalance->student_id;
         }
-         //get all students bus levies
-        //  $buslevies = BusLevy::all();
-        //  foreach ($buslevies as $buslevie){
-        //     $bstudent_id = $buslevie->student_id;
-        //  }
+        //  dd($billId);
+        if ($billToSave == "") {
+            return to_route('admin.buslevies.create')->with('warning', 'Error saving payment. Please create student bus levy bill for term ' . $request->term . ' of ' . $request->academic_year);
+        }
+        //dd( $billToSave);
+        //Update bill in storage.
+        Bill::where('student_id', $billId)
+            ->where('bill_type', 'Buslevies')
+            ->where('academic_year', $request->academic_year)
+            ->where('term', $request->term)
+            ->update(['bill_amount' => $billToSave]);
 
-        //  //if existing balance is notnull do this else
-        //  $latestLevy = BusLevy::where('student_id', $bstudent_id)->latest()->first();
-        //  dd($latestLevy);
-         //else compute $buslevyBalance
-        $buslevyBalance = $request->bill - $request->amount;
-
-        // Create a new buslevy for the student
-
-      $busfair = $buslevy::create([
+        // Create a new BusLevy payment for the student
+        $busfare = BusLevy::create([
             'amount' => $request->amount,
-            'bill' => $request->bill,
             'student_id' => $request->student_id,
-            'balance' => $buslevyBalance,
-            'dateOfPayment' => $request->dateOfPayment,
+            'balance' => $billToSave,
+            'date_of_payment' => $request->date_of_payment,
+            'academic_year' => $request->academic_year,
+            'bill_type' => $request->bill_type,
+            'term' => $request->term,
         ]);
-        // dd($busfair ->amount);
-        // exit;
         // Save the buslevy for the student
-        $student->buslevies()->save($busfair);
+        $student->buslevies()->save($busfare);
 
         return to_route('admin.buslevies.index')->with('success', 'Bus Levy payment saved successfully');
     }

@@ -23,10 +23,12 @@ class UniformCreateRequest extends FormRequest
     {
         return [
             'amount' => ['required'],
-            'bill',
+            'bill_type' => ['required'],
+            'academic_year' => ['required'],
+            'term' => ['required'],
             'balance',
             'student_id' => ['required'],
-            'dateOfPayment' => ['required'],
+            'date_of_payment' => ['required'],
         ];
     }
 }

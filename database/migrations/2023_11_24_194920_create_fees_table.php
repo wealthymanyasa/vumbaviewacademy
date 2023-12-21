@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('amount');
             $table->bigInteger('balance')->nullable();
-            $table->string('dateOfPayment');
+            $table->string('date_of_payment');
             $table->string('term');
             $table->string('bill_type');
             $table->bigInteger('academic_year');

@@ -36,30 +36,85 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
                         <input type="number" name="amount"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter amount">
-                    </div>
-                    <div class="mb-6  ">
-                        <label for="bill"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill</label>
-                        <input type="number" name="bill"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter bill">
-                    </div>
-                    <div class="mb-6  ">
-                        <label for="studentId"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Id</label>
-                        <input type="number" name="student_id"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter Student Id">
+                            placeholder="Enter amount" value="{{ old('amount') }}">
+                        @error('amount')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
                     </div>
 
                     <div class="mb-6  ">
-                        <label for="dateOfPayment"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of Payment</label>
-                        <input type="datetime-local" name="dateOfPayment"
+                        <label for="student_id"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Id</label>
+                        <input type="number" name="student_id"
                             class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter Date Of Payment">
+                            placeholder="Enter Student Id" value="{{ old('student_id') }}">
+                        @error('student_id')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
                     </div>
+
+                    <div class="mb-6  ">
+                        <label for="date_of_payment"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of Payment</label>
+                        <input type="date" name="date_of_payment"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            placeholder="Enter Date Of Payment" value="{{ old('date_of_payment') }}">
+                        @error('date_of_payment')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
+                    </div>
+
+                    <div class="mb-6  ">
+                        <label for="academic_year"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Academic Year</label>
+                        <select type="text" name="academic_year"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror">
+                            <option value="{{ old('academic_year') }}">{{ old('academic_year') }}</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+
+                        @error('academic_year')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
+                    </div>
+                    <div class="mb-6  ">
+                        <label for="term"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Term</label>
+                        <select type="number" name="term"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror">
+                            <option value="{{ old('term') }}">{{ old('term') }}</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
+                            <option value="3">Third</option>
+                        </select>
+                        @error('term')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
+                    </div>
+                    <div class="mb-6  " style="display: none">
+                        <label for="bill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill
+                            Type</label>
+                        <select type="text" name="bill_type"
+                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror">
+                            <option selected value="Buslevies">Buslevies</U></option>
+
+                        </select>
+                        @error('bill_type')
+                            <h1 class="text-sm text-pink-400">{{ $message }}</h1>
+                        @enderror
+                    </div>
+
+
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<div>:message</div>')) !!}
+                    @endif
 
 
 

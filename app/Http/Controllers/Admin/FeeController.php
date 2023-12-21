@@ -40,10 +40,10 @@ class FeeController extends Controller
         $student = Student::find($request->student_id);
         if ($student == null) {
             // if student id provided does not exist return with message
-            return to_route('admin.fees.create')->with('danger', 'Student Id is not found');
+            return to_route('admin.fees.create')->with('warning', 'Student Identification Number is not found');
         }
-        //check if student bill exist
 
+        //check if student bill exist
         //dd($request->term);
         //check bill balance for particular student for period chosen for payment
         $studentBillBalances = Bill::where('student_id', $request->student_id)
@@ -113,73 +113,31 @@ class FeeController extends Controller
         $request->validate([
             'amount' => 'required',
         ]);
-    //     if amount is greater than bill the return with error to user
 
+        // if amount is greater than bill the return with error to user
         if ($fee->balance  < $request->amount) {
-            $message = 'Enter amount less than the student bill balance of $'.$fee->balance;
+            $message = 'Enter amount less than the student bill balance of $' . $fee->balance;
             return to_route('admin.fees.edit', $fee->id)->with('warning',  $message);
         }
         //dd($fee->balance );
-       // dd($request->amount);
-       //get actuacl change in fee amount
-       $feeChange =  $fee->amount - $request->amount;
-      // dd(  $feeChange);
-       // set updated fee
+        // dd($request->amount);
+        //get actual change in fee amount
+        $feeChange =  $fee->amount - $request->amount;
+        // dd(  $feeChange);
+        // set updated fee
         $updatedFee = $fee->balance + $feeChange;
-      //  dd($updatedFee);
+        //  dd($updatedFee);
 
         //update corresponding bill balance
         //dd($fee->student_id);
-          Bill::where('student_id', $fee->student_id)
+        Bill::where('student_id', $fee->student_id)
             ->where('academic_year', $fee->academic_year)
             ->where('term', $fee->term)
             ->where('bill_type', $fee->bill_type)
             ->update(['bill_amount' => $updatedFee,]);
-           // dd($fee->student_id);
-        // //get student bill information
-        // $studentBillBalances = Bill::where('student_id', $fee->student_id)->where('bill_type', 'fees')->get();
-        // $studentBill = "";
-        // //  dd($studentBillBalances);
-        // foreach ($studentBillBalances as $studentBillBalance) {
-        //     $studentBill = $studentBillBalance->bill_amount;
-        //     $billId = $studentBillBalance->student_id;
-        //     $academic_year = $studentBillBalance->academic_year;
-        //     $term = $studentBillBalance->term;
-        //     $bill_type = $studentBillBalance->bill_type;
-        // }
-        // //update bill
-        // $billToSave = $studentBill - $request->amount;
-        // //   dd($billToSave);
-        // Bill::where('student_id', $billId)
-        //     ->where('academic_year', $academic_year)
-        //     ->where('term', $term)
-        //     ->where('bill_type', $bill_type)
-        //     ->update(['bill_amount' => $billToSave,]);
+        // dd($fee->student_id);
 
-        //dd($billToSave);
-        // dd($studentBill);
-        //if amount is greater than bill the return with error to user
-        // if ($studentBill < $request->amount) {
-        //     $message = 'Enter amount less than the student bill';
-        //     return to_route('admin.fees.edit', $fee->id)->with('warning',  $message);
-        // }
-
-        /// find all old fees records
-        //  $oldFees = $fee::all();
-        // loop through old fees and get the old fee bill
-        // foreach ($oldFees as $oldFee) {
-        //     //create new balance from old feebilll minus inputed amount
-        //     if ($oldFee->bill != $studentBill) {
-        //         // dd('bills are different');
-        //         // exitif bills are different then compute newbalance using old values
-        //         $newBalance = $studentBill - $request->amount;
-        //     } else {
-        //         $newBalance = $oldFee->bill - $request->amount;
-        //     }
-        //     // dd($oldFee->bill);
-        //     // exit;
-        // }
-
+        //update fee
         $fee->update([
             'amount' => $request->amount,
             'balance' =>  $updatedFee,
@@ -196,14 +154,20 @@ class FeeController extends Controller
     public function destroy(Fee $fee, Request $request)
     {
         //update bill balance before deleting the fee
-        // dd($fee->amount);
+        //  dd($fee->balance);
+        //get updated fee
+        $updatedFee = $fee->amount + $fee->balance;
+        // dd($updatedFee);
+
+        //update corresponding bill balance
+        //dd($fee->student_id);
         Bill::where('student_id', $fee->student_id)
             ->where('academic_year', $fee->academic_year)
             ->where('term', $fee->term)
             ->where('bill_type', $fee->bill_type)
-            ->update(['bill_amount' => $fee->balance + $fee->amount,]);
+            ->update(['bill_amount' => $updatedFee]);
 
         $fee->delete();
-        return to_route('admin.fees.index')->with('warning', 'Fees payment deleted successfully');
+        return to_route('admin.fees.index')->with('danger', 'Fees payment deleted successfully');
     }
 }

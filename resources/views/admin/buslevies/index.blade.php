@@ -21,20 +21,26 @@
                 <thead class="text-xs  text-gray-700 uppercase  bg-purple-300 dark:bg-purple-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
+                            Student Name
+                        </th>
+
+                        <th scope="col" class="px-6 py-3">
+                            Student Surname
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Date of payment
                         </th>
+                        {{-- <th scope="col" class="px-6 py-3">
+                            Period
+                        </th> --}}
                         <th scope="col" class="px-6 py-3">
                             Amount
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Bill
-                        </th>
+
                         <th scope="col" class="px-6 py-3">
                             Balance
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Student
-                        </th>
+
 
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -43,29 +49,38 @@
                 </thead>
                 <tbody>
                     @forelse ($buslevies as $buslevy)
-                    <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $buslevy->student->name ?? '' }}
+                            </td>
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $buslevy->dateOfPayment }}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $buslevy->amount }}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $buslevy->bill }}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $buslevy->balance }}
-                        </td>
 
                         <td scope="row max-w-[200px]"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$buslevy->student->name}}<br/>{{$buslevy->student->surname}}
+                            {{ $buslevy->student->surname ?? '' }}
                         </td>
+
+                        <td scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $buslevy->date_of_payment }}
+                        </td>
+                        {{-- <td scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Term {{ $fee->bill->term ?? ''}} of {{ $fee->bill->academic_year ?? '' }}
+                        </td> --}}
+
+                        <td scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            ${{ $buslevy->amount }}
+                        </td>
+
+                        <td scope="row max-w-[200px]"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            ${{ $buslevy->balance }}
+                        </td>
+
+
 
 
                         <td scope="row"

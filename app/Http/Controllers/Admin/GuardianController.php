@@ -49,7 +49,7 @@ class GuardianController extends Controller
             'student_id' => $request->student_id
         ]);
 
-        return to_route('admin.guardians.index')->with('info', 'Parent or Guardian infomation saved successfully');;
+        return to_route('admin.guardians.index')->with('success', 'Parent or Guardian infomation saved successfully');;
     }
 
     /**
