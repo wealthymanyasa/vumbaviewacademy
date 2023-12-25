@@ -29,9 +29,9 @@
                         <th scope="col" class="px-6 py-3">
                             Date of payment
                         </th>
-                        {{-- <th scope="col" class="px-6 py-3">
-                            Period
-                        </th> --}}
+                        <th scope="col" class="px-6 py-3">
+                            Receipt Number
+                        </th>
                         <th scope="col" class="px-6 py-3">
                             Amount
                         </th>
@@ -64,10 +64,10 @@
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $uniform->date_of_payment }}
                         </td>
-                        {{-- <td scope="row"
+                        <td scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Term {{ $fee->bill->term ?? ''}} of {{ $fee->bill->academic_year ?? '' }}
-                        </td> --}}
+                             {{ $uniform->receipt_number ?? 'None' }}
+                        </td>
 
                         <td scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

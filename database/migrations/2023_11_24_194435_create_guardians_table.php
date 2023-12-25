@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
+            $table->string('relationship_to_student');
             $table->string('phone');
+            $table->string('email');
             $table->text('address');
             $table->unsignedBigInteger('student_id');
             // Foreign key relationship

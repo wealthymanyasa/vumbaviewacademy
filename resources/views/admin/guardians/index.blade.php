@@ -26,10 +26,16 @@
                             Surname
                         </th>
                         <th scope="col" class="px-6 py-3">
-                           Phone
+                            Phone
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Email
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Address
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Relationship
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Child
@@ -42,55 +48,64 @@
                 </thead>
                 <tbody>
                     @forelse ($guardians as $guardian)
-                    <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $guardian->name }}
-                        </td>
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $guardian->surname }}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $guardian->phone }}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $guardian->address }}
-                        </td>
-                        <td scope="row max-w-[200px]"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $guardian->student->name }}<br/>   {{ $guardian->student->surname}}
-                        </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->name }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->surname }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->phone }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->email }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->address }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->relationship_to_student }}
+                            </td>
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $guardian->student->name }}<br /> {{ $guardian->student->surname }}
+                            </td>
 
 
-                        <td scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="flex space-x-2">
-                                <a href="{{ route('admin.guardians.edit', $guardian->id) }}"
-                                    class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
-                                <form class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
-                                    method="POST" action="{{ route('admin.guardians.destroy', $guardian->id) }}"
-                                    onSubmit="return confirm('Are you sure you want to delete?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex space-x-2">
+                                    <a href="{{ route('admin.guardians.edit', $guardian->id) }}"
+                                        class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
+                                    <form
+                                        class="text-white px-4 py-2 bg-pink-500 rounded-full cursor-pointer hover:bg-white hover:text-gray-800 hover:border hover:border-pink-400"
+                                        method="POST" action="{{ route('admin.guardians.destroy', $guardian->id) }}"
+                                        onSubmit="return confirm('Are you sure you want to delete?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
                         @empty
 
-                        <td scope="row max-w-[200px] " colspan="7"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
-                            </p class="text-center">No parents or guardians found</p>
-                        </td>
+                            <td scope="row max-w-[200px] " colspan="7"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-purple-100 border-b dark:bg-gray-800 dark:border-purple-700">
+                                </p class="text-center">No parents or guardians found</p>
+                            </td>
 
 
 
-                    </tr>
-                @endforelse
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

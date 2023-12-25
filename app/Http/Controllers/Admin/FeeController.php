@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FeeCreateRequest;
 use App\Models\Bill;
 use App\Models\Fee;
+use App\Models\Guardian;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -72,14 +75,15 @@ class FeeController extends Controller
             ->where('academic_year', $request->academic_year)
             ->where('term', $request->term)
             ->update(['bill_amount' => $billToSave]);
-
+        //dd($request->date_of_payment);
         // Create a new fee for the student
         $tuition = Fee::create([
             'amount' => $request->amount,
             'student_id' => $request->student_id,
             'balance' => $billToSave,
-            'dateOfPayment' => $request->dateOfPayment,
+            'date_of_payment' => $request->date_of_payment,
             'academic_year' => $request->academic_year,
+            'receipt_number' => $request->receipt_number,
             'bill_type' => $request->bill_type,
             'term' => $request->term,
         ]);
@@ -92,10 +96,30 @@ class FeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Fee $fee)
     {
-        //
+        //dd($fee->student_id);
+        $guardian = Guardian::where('student_id', $fee->student_id)->get('address');
+        $address = '';
+        foreach ($guardian as $guardian){
+            $address = $guardian->address;
+        }
+        //dd($address);
+        return view('admin.fees.details', compact('fee','address'));
     }
+
+    // public function saveAsPdf(Fee $fee){
+    //     $guardian = Guardian::where('student_id', $fee->student_id)->get('address');
+    //     $address = '';
+    //     foreach ($guardian as $guardian){
+    //         $address = $guardian->address;
+    //     }
+
+    //     $pdf = Pdf::loadView('admin.fees.details', compact('fee','address'))->save(storage_path('app/public/receipt-001.pdf'));
+
+    //     return $pdf->stream();
+    // }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -141,6 +165,7 @@ class FeeController extends Controller
         $fee->update([
             'amount' => $request->amount,
             'balance' =>  $updatedFee,
+            'receipt_number' => $request->receipt_number,
             'dateOfPayment' => $request->dateOfPayment,
 
         ]);

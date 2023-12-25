@@ -13,10 +13,11 @@ class Fee extends Model
         'amount',
         'student_id',
         'balance',
-        'dateOfPayment',
+        'date_of_payment',
         'bill_type',
         'academic_year',
-        'term'
+        'term',
+        'receipt_number',
     ];
 
     public function student()

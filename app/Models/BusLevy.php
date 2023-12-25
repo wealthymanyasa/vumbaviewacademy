@@ -16,7 +16,8 @@ class BusLevy extends Model
         'date_of_payment',
         'bill_type',
         'academic_year',
-        'term'
+        'term',
+        'receipt_number',
     ];
 
     public function student()

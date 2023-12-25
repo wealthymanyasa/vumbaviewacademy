@@ -28,6 +28,7 @@ class StudentCreateRequest extends FormRequest
             'birthEntryNumber' => ['required'],
             'dateOfEnrolment' => ['required'],
             'studentType' => ['required'],
+            'health_status'
         ];
     }
 }

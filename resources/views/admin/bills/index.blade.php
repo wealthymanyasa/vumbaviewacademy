@@ -25,9 +25,7 @@
                         <th scope="col" class="px-6 py-3">
                             Surname
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                          Amount
-                        </th>
+
                         <th scope="col" class="px-6 py-3">
                             Type
                         </th>
@@ -36,6 +34,9 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Term
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Amount
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -57,10 +58,7 @@
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $bill->student->surname ?? '' }}
                             </td>
-                            <td scope="row max-w-[200px]"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $bill->bill_amount }}
-                            </td>
+
                             <td scope="row max-w-[200px]"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $bill->bill_type }}
@@ -74,7 +72,10 @@
                                 {{ $bill->term }}
                             </td>
 
-
+                            <td scope="row max-w-[200px]"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                ${{ $bill->bill_amount }}
+                            </td>
 
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

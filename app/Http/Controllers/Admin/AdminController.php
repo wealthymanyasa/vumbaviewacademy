@@ -9,7 +9,18 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     public function index(){
+
+        return view('admin.index');
+    }
+
+    public function dashboard(){
         $students = DB::table('students')->count();
-        return view('admin.index', compact('students'));
+        $bills = DB::table('bills')->count();
+        $fees = DB::table('fees')->count();
+        $buslevies = DB::table('bus_levies')->count();
+        $guardians = DB::table('guardians')->count();
+        $uniforms = DB::table('uniforms')->count();
+
+        return view('dashboard', compact('students','uniforms','guardians','bills','buslevies','fees'));
     }
 }

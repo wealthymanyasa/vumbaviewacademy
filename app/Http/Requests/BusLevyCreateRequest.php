@@ -27,6 +27,7 @@ class BusLevyCreateRequest extends FormRequest
             'academic_year' => ['required'],
             'term' => ['required'],
             'balance',
+            'receipt_number'=> ['required'],
             'student_id' => ['required'],
             'date_of_payment' => ['required'],
         ];

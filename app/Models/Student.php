@@ -19,13 +19,13 @@ class Student extends Model
 }
 
     protected $fillable = [
-        'id' => 'string',
         'name',
         'surname',
         'dateOfBirth',
         'birthEntryNumber',
         'dateOfEnrolment',
-        'studentType'
+        'studentType',
+        'health_status'
     ];
 
 

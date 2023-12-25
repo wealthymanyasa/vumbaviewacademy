@@ -84,7 +84,8 @@ class StudentController extends Controller
             'dateOfBirth' => $request->dateOfBirth ,
             'birthEntryNumber' => $request->birthEntryNumber,
             'dateOfEnrolment' => $request->dateOfEnrolment,
-            'studentType' => $request->studentType
+            'studentType' => $request->studentType,
+            'health_status' => $request->health_status
 
         ]);
 
@@ -118,11 +119,17 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
+            'dateOfBirth' => 'required',
+            'birthEntryNumber' => 'required',
+            'dateOfEnrolment' => 'required',
+            'studentType' => 'required',
+
         ]);
 
         $student->update([
             'name' => $request->name,
             'surname' => $request->surname,
+            'health_status' => $request->health_status,
             'dateOfBirth' => $request->dateOfBirth,
             'birthEntryNumber' => $request->birthEntryNumber,
             'dateOfEnrolment' => $request->dateOfEnrolment,

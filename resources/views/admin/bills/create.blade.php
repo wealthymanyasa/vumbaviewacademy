@@ -33,9 +33,9 @@
                     @endif
                     <div class="mb-6  ">
                         <label for="bill_amount"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill Amount</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill Amount<span class="text-pink-500">*</span></label>
                         <input type="number" name="bill_amount"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            class="shadow-sm bg-purple-50 borde text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('bill_amount') border-pink-400 @enderror"
                             placeholder="Enter bill amount" value="{{ old('bill_amount') }}">
                         @error('bill_amount')
                             <h1 class="text-sm text-pink-400">{{ $message }}</h1>
@@ -43,9 +43,9 @@
                     </div>
                     <div class="mb-6  ">
                         <label for="bill_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bill
-                            Type</label>
+                            Type<span class="text-pink-500">*</span></label>
                         <select type="text" name="bill_type"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            class="shadow-sm bg-purple-50 border text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('billType') border-pink-400 @enderror"
                         >
                             <option value="{{ old('bill_type') }}">{{ old('bill_type') }}</option>
                             <option value="Fees">Fees</option>
@@ -58,9 +58,9 @@
                     </div>
                     <div class="mb-6  ">
                         <label for="term"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Term</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Term<span class="text-pink-500">*</span></label>
                         <select type="number" name="term"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            class="shadow-sm bg-purple-50 border text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('term') border-pink-400 @enderror"
                          >
                             <option value="{{ old('term') }}">{{ old('term') }}</option>
                             <option value="1">First</option>
@@ -73,19 +73,19 @@
                     </div>
                     <div class="mb-6  ">
                         <label for="student_id"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Id</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Identification Number<span class="text-pink-500">*</span></label>
                         <input type="number" name="student_id"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
-                            placeholder="Enter Student Id" value="{{ old('student_id') }}">
+                            class="shadow-sm bg-purple-50 border text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('student_id') border-pink-400 @enderror"
+                            placeholder="Enter Student Identification Number" value="{{ old('student_id') }}">
                         @error('student_id')
                             <h1 class="text-sm text-pink-400">{{ $message }}</h1>
                         @enderror
                     </div>
                     <div class="mb-6  ">
                         <label for="academic_year"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Academic Year</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Academic Year<span class="text-pink-500">*</span></label>
                         <select type="text" name="academic_year"
-                            class="shadow-sm bg-purple-50 border border-purple-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('name') border-pink-400 @enderror"
+                            class="shadow-sm bg-purple-50 bordetext-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-purple-700 dark:border-purple-600 dark:placeholder-purple-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-blue-500 dark:shadow-sm-light @error('academic_year') border-pink-400 @enderror"
                         >
                             <option value="{{ old('academic_year') }}">{{ old('academic_year') }}</option>
                             <option value="2023">2023</option>

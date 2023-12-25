@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('date_of_payment');
             $table->string('term');
             $table->string('bill_type');
+            $table->string('receipt_number');
             $table->bigInteger('academic_year');
             $table->unsignedBigInteger('student_id');
             // Foreign key relationship

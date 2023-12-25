@@ -38,13 +38,15 @@ class GuardianController extends Controller
           $student = Student::find($request->student_id);
           if ($student == null) {
              // if student id provided does not exist return with message
-              return to_route('admin.guardians.create')->with('danger', 'Student Id is not found');
+              return to_route('admin.guardians.create')->with('warning', 'Student Identification Number is not found');
           }
         Guardian::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'phone' => $request->phone,
             'address' => $request->address,
+            'email' => $request->email,
+            'relationship_to_student' => $request->relationship_to_student,
             'dateOfEnrolment' => $request->dateOfEnrolment,
             'student_id' => $request->student_id
         ]);
@@ -77,6 +79,7 @@ class GuardianController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'phone' => $request->phone,
+            'email' => $request->email,
             'address' => $request->address,
             'dateOfEnrolment' => $request->dateOfEnrolment,
 

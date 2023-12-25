@@ -78,6 +78,7 @@ class UniformController extends Controller
             'student_id' => $request->student_id,
             'balance' => $billToSave,
             'date_of_payment' => $request->date_of_payment,
+            'receipt_number' => $request->receipt_number,
             'academic_year' => $request->academic_year,
             'bill_type' => $request->bill_type,
             'term' => $request->term,
@@ -115,14 +116,11 @@ class UniformController extends Controller
             $message = 'Enter amount less than the student bill balance of $' . $uniform->balance;
             return to_route('admin.uniforms.edit', $uniform->id)->with('warning',  $message);
         }
-        //dd($uniform->balance );
-        // dd($request->amount);
         //get actual change in uniform amount
         $uniformChange =  $uniform->amount - $request->amount;
 
         // set updated uniform
         $updatedFee = $uniform->balance + $uniformChange;
-        //  dd($updatedFee);
 
         //update corresponding bill balance
         Bill::where('student_id', $uniform->student_id)
@@ -136,6 +134,7 @@ class UniformController extends Controller
             'amount' => $request->amount,
             'balance' =>  $updatedFee,
             'date_of_payment' => $request->date_of_payment,
+            'receipt_number' => $request->receipt_number,
 
         ]);
 

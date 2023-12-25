@@ -35,7 +35,6 @@ class BusLevyController extends Controller
     public function store(BusLevyCreateRequest $request, Student $student)
     {
         //check if student id provided exists within the db
-        //check if student id provided exists within the db
         $student = Student::find($request->student_id);
         if ($student == null) {
             // if student id provided does not exist return with message
@@ -78,6 +77,7 @@ class BusLevyController extends Controller
             'student_id' => $request->student_id,
             'balance' => $billToSave,
             'date_of_payment' => $request->date_of_payment,
+            'receipt_number' => $request->receipt_number,
             'academic_year' => $request->academic_year,
             'bill_type' => $request->bill_type,
             'term' => $request->term,
@@ -111,33 +111,33 @@ class BusLevyController extends Controller
     {
         $request->validate([
             'amount' => 'required',
+            'receipt_number' => 'required',
         ]);
         //if amount is grater than bill the return with error to user
-        if ($request->bill < $request->amount) {
-            $message = 'Enter amount less than the student bill';
-            return to_route('admin.buslevies.edit', $buslevy->id)->with('warning', $message);
+        // if amount is greater than bill the return with error to user
+        if ($buslevy->balance  < $request->amount) {
+            $message = 'Enter amount less than the student bill balance of $' . $buslevy->balance;
+            return to_route('admin.buslevys.edit', $buslevy->id)->with('warning',  $message);
         }
-        /// find all old buslevies records
-        $oldBusLevies = $buslevy::all();
-        // loop through old fees and get the old fee bill
-        foreach ($oldBusLevies as $oldBusLevy) {
-            //create new balance from old feebilll minus inputed amount
-            if ($oldBusLevy->bill != $request->bill) {
-                // dd('bills are different');
-                // exitif bills are different then compute newbalance using old values
-                $newBalance = $request->bill - $request->amount;
-            } else {
-                $newBalance = $oldBusLevy->bill - $request->amount;
-            }
-            // dd($oldBusLevies->bill);
-            // exit;
-        }
+        //get actual change in bus levy amount
+        $buslevyChange =  $buslevy->amount - $request->amount;
 
+        // set updated buslevy
+        $updatedFee = $buslevy->balance + $buslevyChange;
+
+        //update corresponding bill balance
+        Bill::where('student_id', $buslevy->student_id)
+            ->where('academic_year', $buslevy->academic_year)
+            ->where('term', $buslevy->term)
+            ->where('bill_type', $buslevy->bill_type)
+            ->update(['bill_amount' => $updatedFee,]);
+
+        //update bus levy
         $buslevy->update([
             'amount' => $request->amount,
-            'bill' => $request->bill,
-            'balance' =>  $newBalance,
-            'dateOfPayment' => $request->dateOfPayment,
+            'balance' =>  $updatedFee,
+            'date_of_payment' => $request->date_of_payment,
+            'receipt_number' => $request->receipt_number,
 
         ]);
 
@@ -149,6 +149,17 @@ class BusLevyController extends Controller
      */
     public function destroy(BusLevy $buslevy)
     {
+        //update bill balance before deleting buslevy
+        //get updated buslevy
+        $updatedBuslevy = $buslevy->amount + $buslevy->balance;
+
+        //update corresponding bill balance
+        Bill::where('student_id', $buslevy->student_id)
+            ->where('academic_year', $buslevy->academic_year)
+            ->where('term', $buslevy->term)
+            ->where('bill_type', $buslevy->bill_type)
+            ->update(['bill_amount' => $updatedBuslevy]);
+        //delete the resource
         $buslevy->delete();
         return to_route('admin.buslevies.index')->with('warning', 'Bus Levy payment deleted successfully');;
     }

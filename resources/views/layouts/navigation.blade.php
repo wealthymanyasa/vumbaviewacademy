@@ -42,7 +42,31 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        <div class="md:hidden">
+                        <x-admin-nav-link :href="route('admin.index')" :active="request()->routeIs('adminx.index')">
+                            {{ __('Dashboard') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
+                            {{ __('Students') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link :href="route('admin.bills.index')" :active="request()->routeIs('admin.parents.index')">
+                            {{ __('Billing') }}
+                        </x-admin-nav-link>
 
+                        <x-admin-nav-link :href="route('admin.fees.index')" :active="request()->routeIs('admin.fees.index')">
+                            {{ __('Fees') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
+                            {{ __('Uniforms') }}
+                        </x-admin-nav-link>
+
+                        <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">
+                            {{ __('Bus Levy') }}
+                        </x-admin-nav-link>
+                        <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
+                            {{ __('Parents') }}
+                        </x-admin-nav-link>
+                        </div>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -83,7 +107,37 @@
                 <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
+            <div class="flex">
 
+
+
+            <x-admin-nav-link :href="route('admin.index')" :active="request()->routeIs('adminx.index')">
+                {{ __('Dashboard') }}
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
+                {{ __('Students') }}
+            </x-admin-nav-link>
+
+            <x-admin-nav-link :href="route('admin.bills.index')" :active="request()->routeIs('admin.parents.index')">
+                {{ __('Billing') }}
+            </x-admin-nav-link>
+            </div>
+            <div class="flex items-center">
+            <x-admin-nav-link :href="route('admin.fees.index')" :active="request()->routeIs('admin.fees.index')">
+                {{ __('Fees') }}
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.uniforms.index')" :active="request()->routeIs('admin.uniforms.index')">
+                {{ __('Uniforms') }}
+            </x-admin-nav-link>
+
+            <x-admin-nav-link :href="route('admin.buslevies.index')" :active="request()->routeIs('admin.buslevies.index')">
+                {{ __('Bus Levy') }}
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.guardians.index')" :active="request()->routeIs('admin.parents.index')">
+                {{ __('Parents') }}
+            </x-admin-nav-link>
+
+        </div>
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}

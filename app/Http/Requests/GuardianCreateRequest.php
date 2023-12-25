@@ -25,8 +25,10 @@ class GuardianCreateRequest extends FormRequest
             'name' => ['required'],
             'surname' => ['required'],
             'phone' => ['required'],
+            'email',
             'address' => ['required'],
-            'student_id' => ['required']
+            'student_id' => ['required'],
+            'relationship_to_student' => ['required']
         ];
     }
 }

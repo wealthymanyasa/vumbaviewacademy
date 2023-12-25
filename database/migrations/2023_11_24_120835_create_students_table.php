@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
+            $table->string('health_status')->nullable();
             $table->string('dateOfBirth');
             $table->string('dateOfEnrolment');
             $table->char('birthEntryNumber')->unique() ;
