@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\BusLevyController;
 use App\Http\Controllers\Admin\FeeController;
 use App\Http\Controllers\Admin\GuardianController;
+use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\UniformController;
 use App\Http\Controllers\ProfileController;
@@ -36,15 +37,21 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth','admin')->name('admin.')->prefix('admin')->group(function(){
     //routes related to the admin
     Route::get('/', [AdminController::class, 'index'])->name('index');
-
+    //resource routes for student
     Route::resource('/students', StudentController::class);
     Route::resource('/fees', FeeController::class);
     Route::resource('/uniforms', UniformController::class);
     Route::resource('/guardians', GuardianController::class);
     Route::resource('/buslevies', BusLevyController::class);
     Route::resource('/bills', BillController::class);
-    Route::get('/save-fee-invoice', [FeeController::class, 'saveAsPdf'])->name('save-fee-invoice');
-
+    // Routes to create students receipts
+    Route::get('/fees-receipts', [ReceiptController::class, 'showCreateFeesReceiptPage'])->name('fees-receipts');
+    Route::post('/get-fees', [ReceiptController::class, 'getStudentFeesPayments'])->name('get-fees');
+    Route::get('/uniforms-receipts', [ReceiptController::class, 'showCreateUniformsReceiptPage'])->name('uniforms-receipts');
+    Route::post('/uniforms-receipt', [ReceiptController::class, 'getStudentUniformsPayments'])->name('uniforms-receipt');
+    Route::get('/buslevies-receipts', [ReceiptController::class, 'showCreateBusLeviesReceiptPage'])->name('buslevies-receipts');
+    Route::post('/buslevies-receipt', [ReceiptController::class, 'getStudentBusLeviesPayments'])->name('buslevies-receipt');
 });
+
 
 require __DIR__.'/auth.php';

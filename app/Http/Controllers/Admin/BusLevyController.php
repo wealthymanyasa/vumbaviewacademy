@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BusLevyCreateRequest;
 use App\Models\Bill;
 use App\Models\BusLevy;
+use App\Models\Guardian;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -91,9 +92,18 @@ class BusLevyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(BusLevy $buslevy)
     {
-        //
+
+          //get student parent information
+          $guardian = Guardian::where('student_id', $buslevy->student_id)->get();
+          //dd($guardian);
+          $address = '';
+          foreach ($guardian as $guardian){
+              $address = $guardian->address;
+          }
+          //dd($address);
+          return view('admin.buslevies.details', compact('buslevy','address'));
     }
 
     /**

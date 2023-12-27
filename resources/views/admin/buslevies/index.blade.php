@@ -21,17 +21,20 @@
                 <thead class="text-xs  text-gray-700 uppercase  bg-purple-300 dark:bg-purple-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Name
+                            Student
                         </th>
 
-                        <th scope="col" class="px-6 py-3">
-                            Surname
-                        </th>
                         <th scope="col" class="px-6 py-3">
                             Date of payment
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Receipt Number
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Term
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Year
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Amount
@@ -52,13 +55,7 @@
                         <tr class="bg-purple-100 border-b dark:bg-gray-800 dark:border-gray-700">
                             <td scope="row max-w-[200px]"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $buslevy->student->name ?? '' }}
-                            </td>
-
-
-                            <td scope="row max-w-[200px]"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $buslevy->student->surname ?? '' }}
+                                {{ $buslevy->student->name ?? '' }} <br> {{ $buslevy->student->surname ?? '' }}
                             </td>
 
                             <td scope="row"
@@ -68,6 +65,14 @@
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $buslevy->receipt_number }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $buslevy->term }}
+                            </td>
+                            <td scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $buslevy->academic_year }}
                             </td>
 
                             <td scope="row"
@@ -86,6 +91,9 @@
                             <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex space-x-2">
+                                    <a href=" {{ route('admin.buslevies.show', $buslevy->id) }}"
+                                        class="px-4 py-2 bg-cyan-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">View</a>
+
                                     <a href="{{ route('admin.buslevies.edit', $buslevy->id) }}"
                                         class="px-4 py-2 bg-purple-500  text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">Edit</a>
                                     <form

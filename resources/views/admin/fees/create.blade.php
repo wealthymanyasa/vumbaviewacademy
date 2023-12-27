@@ -6,9 +6,6 @@
     </x-slot>
 
     <div class="">
-
-
-
         <div class="">
             <div class="flex justify-end m-2 p-2 ">
                 <a href="{{ route('admin.fees.index') }}"

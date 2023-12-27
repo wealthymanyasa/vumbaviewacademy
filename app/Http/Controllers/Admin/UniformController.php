@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UniformCreateRequest;
 use App\Models\Bill;
+use App\Models\Guardian;
 use App\Models\Student;
 use App\Models\Uniform;
 use Illuminate\Http\Request;
@@ -93,9 +94,17 @@ class UniformController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Uniform $uniform)
     {
-        //
+          //get student parent information
+          $guardian = Guardian::where('student_id', $uniform->student_id)->get();
+          //dd($guardian);
+          $address = '';
+          foreach ($guardian as $guardian){
+              $address = $guardian->address;
+          }
+          //dd($address);
+          return view('admin.uniforms.details', compact('uniform','address'));
     }
 
     /**

@@ -20,10 +20,10 @@
     <div class=" p-4 space-y-6">
         <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 pb-10 space-y-6">
         <div class="border-l-4 border-purple-300 flex justify-between">
-            <span class="p-4 uppercase font-semibold "> vumba view academy Fees Invoice </span>
+            <span class="p-4 uppercase font-semibold "> vumba view academy Bus Levy Invoice </span>
 
             <div class="flex items-center">
-                <a href="{{ route('admin.fees.index') }}"
+                <a href="{{ route('admin.buslevies.index') }}"
                     class="p-2 px-4 bg-purple-500 text-white cursor-pointer rounded-full hover:bg-white hover:text-gray-800 hover:border hover:border-purple-400">
                     Back</a>
             </div>
@@ -36,7 +36,7 @@
                     <h2 class="text-2xl font-semibold text-purple-800 dark:text-gray-200">Invoice</h2>
                     <span class="text-sm">Single payment</span>
 
-                </div>
+*                </div>
                 <!-- Col -->
 
                 <div class="inline-flex gap-x-2">
@@ -80,7 +80,7 @@
                             <dd class="text-gray-800 dark:text-gray-200">
                                 <a class="inline-flex items-center gap-x-1.5 text-purple-600 decoration-2 hover:underline font-medium"
                                     href="#">
-                                    {{ $fee->student->name ?? "None"}} {{ $fee->student->surname ?? "None"}}
+                                    {{ $buslevy->student->name ?? "None"}} {{ $buslevy->student->surname ?? "None"}}
                                 </a>
                             </dd>
                         </dl>
@@ -92,7 +92,7 @@
                             <dd class="text-gray-800 dark:text-gray-200">
                                 <a class="inline-flex items-center gap-x-1.5 text-purple-600 decoration-2 hover:underline font-medium"
                                     href="#">
-                                    {{ $fee->student->id ?? 'None' }} </a>
+                                    {{ $buslevy->student->id ?? 'None' }} </a>
                             </dd>
                         </dl>
 
@@ -118,7 +118,7 @@
                                 Invoice number:
                             </dt>
                             <dd class="font-medium text-gray-800 dark:text-gray-200">
-                                {{ $fee->receipt_number }}
+                                {{ $buslevy->receipt_number }}
                             </dd>
                         </dl>
                         <dl class="grid sm:flex gap-x-3 text-sm">
@@ -126,7 +126,7 @@
                                 Billing method:
                             </dt>
                             <dd class="font-medium text-gray-800 dark:text-gray-200">
-                                {{$fee->bill_type }}
+                                {{$buslevy->bill_type }}
                             </dd>
                         </dl>
                         <dl class="grid sm:flex gap-x-3 text-sm">
@@ -134,7 +134,7 @@
                                 Billing period:
                             </dt>
                             <dd class="font-medium text-gray-800 dark:text-gray-200">
-                                Term {{$fee->term }} of {{$fee->academic_year}}
+                                Term {{$buslevy->term }} of {{$buslevy->academic_year}}
                             </dd>
                         </dl>
                     </div>
@@ -156,16 +156,16 @@
                 <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     <div class="col-span-full sm:col-span-2">
                         <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
-                        <p class="font-medium text-gray-800 dark:text-gray-200">Fees</p>
+                        <p class="font-medium text-gray-800 dark:text-gray-200">Bus Levy</p>
                     </div>
                     <div>
                         <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Date OF Payment</h5>
-                        <p class="text-gray-800 dark:text-gray-200">{{ $fee->date_of_payment }}</p>
+                        <p class="text-gray-800 dark:text-gray-200">{{ $buslevy->date_of_payment }}</p>
                     </div>
 
                     <div>
                         <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
-                        <p class="sm:text-end text-gray-800 dark:text-gray-200">${{ $fee->amount }}</p>
+                        <p class="sm:text-end text-gray-800 dark:text-gray-200">${{ $buslevy->amount }}</p>
                     </div>
                 </div>
 
@@ -183,13 +183,13 @@
 
                         <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
                             <dt class="col-span-3 text-gray-500">Total:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800 dark:text-gray-200 border-b-4 border-black">${{ $fee->amount }}
+                            <dd class="col-span-2 font-medium text-gray-800 dark:text-gray-200 border-b-4 border-black">${{ $buslevy->amount }}
                             </dd>
                         </dl>
 
                         <dl class="grid sm:grid-cols-5 gap-x-3 text-sm ">
                             <dt class="col-span-3 text-gray-500">Due balance:</dt>
-                            <dd class="col-span-2 font-medium text-gray-800 dark:text-gray-200 border-b-4 border-black">${{ $fee->balance }}
+                            <dd class="col-span-2 font-medium text-gray-800 dark:text-gray-200 border-b-4 border-black">${{ $buslevy->balance }}
                             </dd>
                         </dl>
                     </div>

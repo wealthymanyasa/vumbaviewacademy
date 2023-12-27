@@ -98,8 +98,9 @@ class FeeController extends Controller
      */
     public function show(Fee $fee)
     {
-        //dd($fee->student_id);
-        $guardian = Guardian::where('student_id', $fee->student_id)->get('address');
+        //get student parent information
+        $guardian = Guardian::where('student_id', $fee->student_id)->get();
+        //dd($guardian);
         $address = '';
         foreach ($guardian as $guardian){
             $address = $guardian->address;
