@@ -28,7 +28,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h2 class="font-bold uppercase text-gray-600">Total Students</h2>
-                                <p class="font-bold text-3xl">{{ $students }}<span class="text-purple-600"><i
+                                <p class="font-bold text-3xl"><span class="text-purple-600"><i
                                             class="fas fa-caret-up"></i></span></p>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h2 class="font-bold uppercase text-gray-600">Total Fees Transactions</h2>
-                                <p class="font-bold text-3xl">{{ $fees }} <span class="text-green-500"><i
+                                <p class="font-bold text-3xl"> <span class="text-green-500"><i
                                             class="fas fa-exchange-alt"></i></span></p>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h2 class="font-bold uppercase text-gray-600">Total Bills</h2>
-                                <p class="font-bold text-3xl">{{ $bills }} <span class="text-purple-600"><i
+                                <p class="font-bold text-3xl"> <span class="text-purple-600"><i
                                             class="fas fa-caret-up"></i></span></p>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h2 class="font-bold uppercase text-gray-600">Total Bus Levy Transactions</h2>
-                                <p class="font-bold text-3xl">{{ $buslevies }} <span class="text-purple-600"><i
+                                <p class="font-bold text-3xl"> <span class="text-purple-600"><i
                                             class="fas fa-caret-up"></i></span></p>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h2 class="font-bold uppercase text-gray-600">Total Parents Number</h2>
-                                <p class="font-bold text-3xl">{{ $guardians }} <span class="text-green-500"><i
+                                <p class="font-bold text-3xl"> <span class="text-green-500"><i
                                             class="fas fa-exchange-alt"></i></span></p>
                             </div>
                         </div>
